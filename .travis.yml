@@ -1,10 +1,12 @@
 language: java
 sudo: false
 dist: trusty
+
 #mvn test -B
-mvn install -DskipTests=false -Dmaven.javadoc.skip=true -B -V
 script:
   - jdk_switcher use oraclejdk8
+script: mvn clean verify
+script: mvn install -DskipTests=false -Dmaven.javadoc.skip=true -B -V
 #  -  do stuff with Java 8
 
 #  language: java
