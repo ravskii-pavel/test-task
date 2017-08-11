@@ -9,66 +9,11 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <!--<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-       &lt;!&ndash; <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>&ndash;&gt;-->
         <java.version>1.8</java.version>
         <log4j.version>1.2.17</log4j.version>
         <lombok.version>1.16.14</lombok.version>
         <junit.version>4.12</junit.version>
     </properties>
-
-    <!--<build>
-        <plugins>
-            &lt;!&ndash;<plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.5.1</version>
-                <configuration>
-                    <target>${java.version}</target>
-                    <source>${java.version}</source>
-                </configuration>
-            </plugin>&ndash;&gt;
-            &lt;!&ndash;<plugin>
-                <groupId>org.eluder.coveralls</groupId>
-                <artifactId>coveralls-maven-plugin</artifactId>
-                <version>2.2.0</version>
-                <configuration>
-                    <repoToken>utTG1tT0HwFYfm8AUD5ez0tJPZSfEfxQ3</repoToken>
-                    <sourceDirectories>
-                        <sourceDirectory>/src/main/java</sourceDirectory>
-                    </sourceDirectories>
-                </configuration>
-            </plugin>&ndash;&gt;
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.7.6.201602180812</version>
-                <executions>
-                    <execution>
-                        <id>prepare-agent</id>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-                <version>2.6</version>
-                <configuration>
-                    <format>xml</format>
-                    <maxmem>256m</maxmem>
-                    &lt;!&ndash; aggregated reports for multi-module projects &ndash;&gt;
-                    <aggregate>true</aggregate>
-                </configuration>
-            </plugin>
-
-        </plugins>
-    </build>
--->
 
     <dependencies>
         <dependency>
