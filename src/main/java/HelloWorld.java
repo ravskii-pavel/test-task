@@ -17,9 +17,7 @@ public class HelloWorld {
     private Calendar calendar = Calendar.getInstance();
     private String propertyFileName;
 
-    void greetingMessage(){ System.out.println(sayHello()); }
     String sayHello() {
-
         String timeZoneName = getCurrentNameTimeZone();
         int currentHours = getCurrentHoursOfTime();
 
@@ -40,7 +38,6 @@ public class HelloWorld {
         return calendar.getTimeZone().getID();
     }
     private Properties loadPropertyFile(String propertyFileName) {
-
         Properties property = new Properties();
         try {
             InputStream fis = ClassLoader.getSystemResourceAsStream(propertyFileName);
