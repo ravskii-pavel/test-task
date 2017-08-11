@@ -1,59 +1,54 @@
+/**
+ * Created by ravskiy on 11.08.17.
+ */
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.log4j.Logger;
 
 import java.io.*;
-import java.nio.charset.Charset;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.Properties;
-import java.util.TimeZone;
 
+@Getter
+@Setter
 public class HelloWorld {
 
     private static final Logger LOGGER = Logger.getLogger(HelloWorld.class);
-    private FileInputStream fis;
-    private Properties property = new Properties();
+    private Calendar calendar = Calendar.getInstance();
+    private String propertyFileName;
 
-    void sayHello() {
-        String messageProp;
-        TimeZone timeZone = Calendar.getInstance().getTimeZone();
-        String timeZoneName =  timeZone.getID();
-        System.out.println(timeZone.getID());
-        Calendar calendar = Calendar.getInstance();
-//        String propFileName = "message.resource.properties";
-//        String now = calendar.getTime().toString();
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+    void greetingMessage(){ System.out.println(sayHello()); }
+    String sayHello() {
 
-        /*InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);*/
-        if (timeZoneName.equals("Europe/Kiev")) messageProp = "message.ru.properties";
-        else messageProp = "message.en.properties";
+        String timeZoneName = getCurrentNameTimeZone();
+        int currentHours = getCurrentHoursOfTime();
+
+        if (timeZoneName.equals("Europe/Kiev")) propertyFileName = "message.ru.properties";
+        else propertyFileName = "message.en.properties";
+        Properties property = loadPropertyFile(propertyFileName);
+
+        if (currentHours >= 9 && currentHours < 19) return property.getProperty("prop.day");
+        else if (currentHours < 6 || currentHours == 23) return property.getProperty("prop.night");
+        else if (currentHours >= 19 && currentHours < 23) return property.getProperty("prop.evening");
+        else return property.getProperty("prop.morning");
+    }
+
+    private int getCurrentHoursOfTime() {
+        return calendar.get(Calendar.HOUR_OF_DAY);
+    }
+    private String getCurrentNameTimeZone() {
+        return calendar.getTimeZone().getID();
+    }
+    private Properties loadPropertyFile(String propertyFileName) {
+        Properties property = new Properties();
         try {
-            fis = new FileInputStream("src/main/resources/localizations/"+messageProp);
-//            BufferedReader is = new BufferedReader(new InputStreamReader(fis, "Cp1251"));
-//            BufferedReader bufReader = new BufferedReader(new InputStreamReader(new FileInputStream(String.valueOf(fis)), Charset.forName("UTF-8")));
-
-
-            //FileInputStream fis1 = new FileInputStream("priwet.txt");
+            FileInputStream fis = new FileInputStream("src/main/resources/localizations/" + propertyFileName);
             InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
-            Reader in = new BufferedReader(isr);
-
-            property.load(in);
-            in.close();
-            if (hour >= 9 && hour < 19) {
-                System.out.println(property.getProperty("prop.day"));
-            }
-            else if (hour < 6 || hour == 23) {
-                System.out.println(property.getProperty("prop.night"));
-            }
-            else if(hour >= 19 && hour < 23) {
-                System.out.println(property.getProperty("prop.evening"));
-            }
-            else {
-                System.out.println(property.getProperty("prop.morning"));
-            }
-
+            property.load(isr);
+            isr.close();
         } catch (IOException e) {
-            System.err.println("ОШИБКА: Файл свойств отсуствует!");
-            LOGGER.error("ОШИБКА: Файл свойств отсуствует!");
+            LOGGER.error(e);
         }
+        return property;
     }
 }
