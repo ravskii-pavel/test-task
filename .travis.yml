@@ -5,6 +5,7 @@ script:
   - jdk_switcher use oraclejdk8
 script: mvn clean verify
 script: mvn install -DskipTests=false -Dmaven.javadoc.skip=true -B -V
+gem 'coveralls', require: false
 env:
   global:
     - secure: "pmNBqCAW1rc4WKHEmnroZNwAMus18K1VWhRYwt+CN0acH8griJp612tjwWcI\n9XkZcSPR0CJx1TZqGDZZTFH44Pkm6ELU1kc54xtJR6WMXnubEVoEom0tcv/1\nNyzxv9UFJfaNgaTESww+OXSlO9wQre5ZS0/wn2xrz0+twtOPYDU="
