@@ -40,9 +40,10 @@ public class HelloWorld {
         return calendar.getTimeZone().getID();
     }
     private Properties loadPropertyFile(String propertyFileName) {
+
         Properties property = new Properties();
         try {
-            FileInputStream fis = new FileInputStream("src/main/resources/localizations/" + propertyFileName);
+            InputStream fis = ClassLoader.getSystemResourceAsStream(propertyFileName);
             InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
             property.load(isr);
             isr.close();
