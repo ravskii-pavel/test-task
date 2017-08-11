@@ -5,3 +5,7 @@ script:
   - jdk_switcher use oraclejdk8
 script: mvn clean verify
 script: mvn install -DskipTests=false -Dmaven.javadoc.skip=true -B -V
+script:
+  - mvn test jacoco:report
+after_success:
+  - mvn coveralls:report
