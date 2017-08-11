@@ -29,14 +29,14 @@
                     <source>${java.version}</source>
                 </configuration>
             </plugin>
-<!--            <plugin>
+            <plugin>
                 <groupId>org.eluder.coveralls</groupId>
                 <artifactId>coveralls-maven-plugin</artifactId>
                 <version>4.3.0</version>
                 <configuration>
-                    <repoToken>XXK0c6YXHTZWo7SSUFPyhTeFznosuj8lvLc2g</repoToken>
+                    <repoToken>utTG1tT0HwFYfm8AUD5ez0tJPZSfEfxQ3</repoToken>
                 </configuration>
-            </plugin>-->
+            </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
