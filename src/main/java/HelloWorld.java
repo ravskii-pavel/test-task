@@ -1,52 +1,33 @@
-/**
- * Created by ravskiy on 11.08.17.
- */
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.log4j.Logger;
-
-import java.io.*;
-import java.util.Calendar;
-import java.util.Properties;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class HelloWorld {
-
     private static final Logger LOGGER = Logger.getLogger(HelloWorld.class);
-    private Calendar calendar = Calendar.getInstance();
-    private String propertyFileName;
+    private ResourceBundle bundleEN;
+    private ResourceBundle bundleRU;
 
-    String sayHello() {
-        String timeZoneName = getCurrentNameTimeZone();
-        int currentHours = getCurrentHoursOfTime();
-
-        if (timeZoneName.equals("Europe/Kiev")) propertyFileName = "message.ru.properties";
-        else propertyFileName = "message.en.properties";
-        Properties property = loadPropertyFile(propertyFileName);
-
-        if (currentHours >= 9 && currentHours < 19) return property.getProperty("prop.day");
-        else if (currentHours < 6 || currentHours == 23) return property.getProperty("prop.night");
-        else if (currentHours >= 19 && currentHours < 23) return property.getProperty("prop.evening");
-        else return property.getProperty("prop.morning");
+    String sayHello(Date date, String timeZoneName) {
+        int currentHours = Integer.parseInt(new SimpleDateFormat("HH").format(date));
+        if (timeZoneName.equals("Europe/Kiev")) return getMessage(currentHours, bundleRU, timeZoneName);
+        else return getMessage(currentHours, bundleEN, timeZoneName);
     }
-
-    private int getCurrentHoursOfTime() {
-        return calendar.get(Calendar.HOUR_OF_DAY);
-    }
-    private String getCurrentNameTimeZone() {
-        return calendar.getTimeZone().getID();
-    }
-    private Properties loadPropertyFile(String propertyFileName) {
-        Properties property = new Properties();
-        try {
-            InputStream fis = ClassLoader.getSystemResourceAsStream(propertyFileName);
-            InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
-            property.load(isr);
-            isr.close();
-        } catch (IOException e) {
-            LOGGER.error(e);
-        }
-        return property;
+    private String getMessage(int currentHours, ResourceBundle bundle, String timeZoneName){
+        String message;
+        if (currentHours >= 9 && currentHours < 19) message = bundle.getString("message.day");
+        else if (currentHours < 6 || currentHours == 23) message = bundle.getString("message.night");
+        else if (currentHours >= 19 && currentHours < 23) message = bundle.getString("message.evening");
+        else message = bundle.getString("message.morning");
+        LOGGER.info("TimeZone: " + timeZoneName + "; " + "Language: " + bundle.getLocale() + "; " +
+                    "Message: " + message + ".");
+        return message;
     }
 }
