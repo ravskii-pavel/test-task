@@ -12,7 +12,7 @@ public class Main {
         Greeting greeting = new Greeting(bundleEN, bundleRU);
         APP_LOGGER.info(greeting.sayHello(Calendar.getInstance()));
     }
-    private static ResourceBundle getResourceBundle(String language, String country){
+    public static ResourceBundle getResourceBundle(String language, String country){
         return ResourceBundle.getBundle("message", new Locale(language, country));
     }
 }

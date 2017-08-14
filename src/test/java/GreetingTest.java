@@ -2,12 +2,13 @@ import com.ravskiy.Greeting;
 import org.junit.Test;
 import java.text.ParseException;
 import java.util.*;
+import static com.ravskiy.Main.getResourceBundle;
 import static org.junit.Assert.assertEquals;
 
 public class GreetingTest {
 
-    private ResourceBundle bundleEN = ResourceBundle.getBundle("message", new Locale("en", "EN"));
-    private ResourceBundle bundleRU = ResourceBundle.getBundle("message", new Locale("ru", "UA"));
+    private ResourceBundle bundleEN = getResourceBundle("en", "EN");
+    private ResourceBundle bundleRU = getResourceBundle("ru", "UA");
     private Greeting greeting = new Greeting(bundleEN, bundleRU);
     private Calendar calendar = new GregorianCalendar(2017, Calendar.JULY, 27, 14, 20);
     private String testTimeZoneUkraine = "Europe/Kiev";
