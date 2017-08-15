@@ -15,6 +15,12 @@ public class GreetingTest {
     private String testTimeZoneNewYork = "America/New_York";
     private String testTimeZoneTokyo = "Asia/Tokyo";
 
+    private Calendar getCalendarByTimeZone(int hours, String timeZoneName) {
+        Calendar calendar = new GregorianCalendar(2017, Calendar.JULY, 27, hours, 20);
+        calendar.setTimeZone(TimeZone.getTimeZone(timeZoneName));
+        return calendar;
+    }
+
     @Test
     public void shouldReturnGoodMorningMessageOnRussianFromKiev() {
         //given
@@ -133,11 +139,5 @@ public class GreetingTest {
         String actual = greeting.sayHello(getCalendarByTimeZone(5, testTimeZoneTokyo));
         //then
         assertEquals("Wrong actual Message. Expected: " + expected, expected, actual);
-    }
-
-    private Calendar getCalendarByTimeZone(int hours, String timeZoneName) {
-        Calendar calendar = new GregorianCalendar(2017, Calendar.JULY, 27, hours, 20);
-        calendar.setTimeZone(TimeZone.getTimeZone(timeZoneName));
-        return calendar;
     }
 }
