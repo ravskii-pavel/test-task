@@ -1,7 +1,8 @@
 import com.ravskiy.Greeting;
 import org.junit.Test;
-import java.text.ParseException;
+
 import java.util.*;
+
 import static com.ravskiy.Main.getResourceBundle;
 import static org.junit.Assert.assertEquals;
 
@@ -10,152 +11,133 @@ public class GreetingTest {
     private ResourceBundle bundleEN = getResourceBundle("en", "EN");
     private ResourceBundle bundleRU = getResourceBundle("ru", "UA");
     private Greeting greeting = new Greeting(bundleEN, bundleRU);
-    private Calendar calendar = new GregorianCalendar(2017, Calendar.JULY, 27, 14, 20);
     private String testTimeZoneUkraine = "Europe/Kiev";
     private String testTimeZoneNewYork = "America/New_York";
     private String testTimeZoneTokyo = "Asia/Tokyo";
 
     @Test
-    public void shouldReturnGoodMorningMessageOnRussianFromKiev() throws ParseException {
+    public void shouldReturnGoodMorningMessageOnRussianFromKiev() {
         //given
-        calendar.set(Calendar.HOUR_OF_DAY, 7);
-        calendar.setTimeZone(TimeZone.getTimeZone(testTimeZoneUkraine));
         String expected = bundleRU.getString("message.morning");
         //when
-        String actual = greeting.sayHello(calendar);
+        String actual = greeting.sayHello(getCalendarByTimeZone(7, testTimeZoneUkraine));
         //then
         assertEquals("Wrong actual Message. Expected: " + expected, expected, actual);
     }
 
     @Test
-    public void shouldReturnGoodDayMessageOnRussianFromKiev() throws ParseException {
+    public void shouldReturnGoodDayMessageOnRussianFromKiev() {
         //given
-        calendar.set(Calendar.HOUR_OF_DAY, 14);
-        calendar.setTimeZone(TimeZone.getTimeZone(testTimeZoneUkraine));
         String expected = bundleRU.getString("message.day");
         //when
-        String actual = greeting.sayHello(calendar);
+        String actual = greeting.sayHello(getCalendarByTimeZone(14, testTimeZoneUkraine));
         //then
         assertEquals("Wrong actual Message. Expected: " + expected, expected, actual);
     }
 
     @Test
-    public void shouldReturnGoodEveningMessageOnRussianFromKiev() throws ParseException {
+    public void shouldReturnGoodEveningMessageOnRussianFromKiev() {
         //given
-        calendar.set(Calendar.HOUR_OF_DAY, 20);
-        calendar.setTimeZone(TimeZone.getTimeZone(testTimeZoneUkraine));
         String expected = bundleRU.getString("message.evening");
         //when
-        String actual = greeting.sayHello(calendar);
+        String actual = greeting.sayHello(getCalendarByTimeZone(20, testTimeZoneUkraine));
         //then
         assertEquals("Wrong actual Message. Expected: " + expected, expected, actual);
     }
 
     @Test
-    public void shouldReturnGoodNightMessageOnRussianFromKiev() throws ParseException {
+    public void shouldReturnGoodNightMessageOnRussianFromKiev() {
         //given
-        calendar.set(Calendar.HOUR_OF_DAY, 3);
-        calendar.setTimeZone(TimeZone.getTimeZone(testTimeZoneUkraine));
         String expected = bundleRU.getString("message.night");
         //when
-        String actual = greeting.sayHello(calendar);
+        String actual = greeting.sayHello(getCalendarByTimeZone(3, testTimeZoneUkraine));
         //then
         assertEquals("Wrong actual Message. Expected: " + expected, expected, actual);
     }
 
     @Test
-    public void shouldReturnGoodMorningMessageOnEnglishFromNY() throws ParseException {
+    public void shouldReturnGoodMorningMessageOnEnglishFromNY() {
         //given
-        calendar.set(Calendar.HOUR_OF_DAY, 8);
-        calendar.setTimeZone(TimeZone.getTimeZone(testTimeZoneNewYork));
         String expected = bundleEN.getString("message.morning");
         //when
-        String actual = greeting.sayHello(calendar);
+        String actual = greeting.sayHello(getCalendarByTimeZone(8, testTimeZoneNewYork));
         //then
         assertEquals("Wrong actual Message. Expected: " + expected, expected, actual);
     }
 
     @Test
-    public void shouldReturnGoodDayMessageOnEnglishFromNY() throws ParseException {
+    public void shouldReturnGoodDayMessageOnEnglishFromNY() {
         //given
-        calendar.set(Calendar.HOUR_OF_DAY, 16);
-        calendar.setTimeZone(TimeZone.getTimeZone(testTimeZoneNewYork));
         String expected = bundleEN.getString("message.day");
         //when
-        String actual = greeting.sayHello(calendar);
+        String actual = greeting.sayHello(getCalendarByTimeZone(16, testTimeZoneNewYork));
         //then
         assertEquals("Wrong actual Message. Expected: " + expected, expected, actual);
     }
 
     @Test
-    public void shouldReturnGoodEveningMessageOnEnglishFromNY() throws ParseException {
+    public void shouldReturnGoodEveningMessageOnEnglishFromNY() {
         //given
-        calendar.set(Calendar.HOUR_OF_DAY, 21);
-        calendar.setTimeZone(TimeZone.getTimeZone(testTimeZoneNewYork));
         String expected = bundleEN.getString("message.evening");
         //when
-        String actual = greeting.sayHello(calendar);
+        String actual = greeting.sayHello(getCalendarByTimeZone(21, testTimeZoneNewYork));
         //then
         assertEquals("Wrong actual Message. Expected: " + expected, expected, actual);
     }
 
     @Test
-    public void shouldReturnGoodNightMessageOnEnglishFromNY() throws ParseException {
+    public void shouldReturnGoodNightMessageOnEnglishFromNY() {
         //given
-        calendar.set(Calendar.HOUR_OF_DAY, 4);
-        calendar.setTimeZone(TimeZone.getTimeZone(testTimeZoneNewYork));
         String expected = bundleEN.getString("message.night");
         //when
-        String actual = greeting.sayHello(calendar);
+        String actual = greeting.sayHello(getCalendarByTimeZone(4, testTimeZoneNewYork));
         //then
         assertEquals("Wrong actual Message. Expected: " + expected, expected, actual);
     }
 
     @Test
-    public void shouldReturnGoodMorningMessageOnEnglishFromTokyo() throws ParseException {
+    public void shouldReturnGoodMorningMessageOnEnglishFromTokyo() {
         //given
-        calendar.set(Calendar.HOUR_OF_DAY, 6);
-        calendar.setTimeZone(TimeZone.getTimeZone(testTimeZoneTokyo));
         String expected = bundleEN.getString("message.morning");
         //when
-        String actual = greeting.sayHello(calendar);
+        String actual = greeting.sayHello(getCalendarByTimeZone(6, testTimeZoneTokyo));
         //then
         assertEquals("Wrong actual Message. Expected: " + expected, expected, actual);
     }
 
     @Test
-    public void shouldReturnGoodDayMessageOnEnglishFromTokyo() throws ParseException {
+    public void shouldReturnGoodDayMessageOnEnglishFromTokyo() {
         //given
-        calendar.set(Calendar.HOUR_OF_DAY, 17);
-        calendar.setTimeZone(TimeZone.getTimeZone(testTimeZoneTokyo));
         String expected = bundleEN.getString("message.day");
         //when
-        String actual = greeting.sayHello(calendar);
+        String actual = greeting.sayHello(getCalendarByTimeZone(17, testTimeZoneTokyo));
         //then
         assertEquals("Wrong actual Message. Expected: " + expected, expected, actual);
     }
 
     @Test
-    public void shouldReturnGoodEveningMessageOnEnglishFromTokyo() throws ParseException {
+    public void shouldReturnGoodEveningMessageOnEnglishFromTokyo() {
         //given
-        calendar.set(Calendar.HOUR_OF_DAY, 22);
-        calendar.setTimeZone(TimeZone.getTimeZone(testTimeZoneTokyo));
         String expected = bundleEN.getString("message.evening");
         //when
-        String actual = greeting.sayHello(calendar);
+        String actual = greeting.sayHello(getCalendarByTimeZone(22, testTimeZoneTokyo));
         //then
         assertEquals("Wrong actual Message. Expected: " + expected, expected, actual);
     }
 
     @Test
-    public void shouldReturnGoodNightMessageOnEnglishFromTokyo() throws ParseException {
+    public void shouldReturnGoodNightMessageOnEnglishFromTokyo() {
         //given
-        calendar.set(Calendar.HOUR_OF_DAY, 5);
-        calendar.setTimeZone(TimeZone.getTimeZone(testTimeZoneTokyo));
         String expected = bundleEN.getString("message.night");
         //when
-        String actual = greeting.sayHello(calendar);
+        String actual = greeting.sayHello(getCalendarByTimeZone(5, testTimeZoneTokyo));
         //then
         assertEquals("Wrong actual Message. Expected: " + expected, expected, actual);
+    }
+
+    private Calendar getCalendarByTimeZone(int hours, String timeZoneName) {
+        Calendar calendar = new GregorianCalendar(2017, Calendar.JULY, 27, hours, 20);
+        calendar.setTimeZone(TimeZone.getTimeZone(timeZoneName));
+        return calendar;
     }
 }
