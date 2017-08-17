@@ -10,13 +10,14 @@ public class Main {
     public static final Logger APP_LOGGER = Logger.getLogger("application");
 
     public static void main(String[] args) {
-        ResourceBundle bundleEN = getResourceBundle("en", "EN");
-        ResourceBundle bundleRU = getResourceBundle("ru", "UA");
+        Locale localeUA = new Locale("ru", "UA");
+        ResourceBundle bundleEN = getResourceBundle(Locale.US);
+        ResourceBundle bundleRU = getResourceBundle(localeUA);
         Greeting greeting = new Greeting(bundleEN, bundleRU);
-        APP_LOGGER.info(greeting.sayHello(Calendar.getInstance()));
+        APP_LOGGER.info(greeting.sayHello(Calendar.getInstance(), Locale.getDefault()));
     }
 
-    public static ResourceBundle getResourceBundle(String language, String country) {
-        return ResourceBundle.getBundle("message", new Locale(language, country));
+    public static ResourceBundle getResourceBundle(Locale locale) {
+        return ResourceBundle.getBundle("message", locale);
     }
 }

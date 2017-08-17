@@ -1,3 +1,4 @@
+/*
 import com.ravskiy.Greeting;
 import org.junit.Test;
 
@@ -14,6 +15,14 @@ public class GreetingTest {
     private String testTimeZoneUkraine = "Europe/Kiev";
     private String testTimeZoneNewYork = "America/New_York";
     private String testTimeZoneTokyo = "Asia/Tokyo";
+
+    private Calendar getCalendarByLocale(int hours, Locale locale) {
+        Calendar calendar = Calendar.getInstance(locale);
+        calendar.getTimeZone().getDisplayName(locale);
+        //Calendar calendar = new GregorianCalendar(2017, Calendar.JULY, 27, hours, 20);
+        //calendar.get()
+        return calendar;
+    }
 
     private Calendar getCalendarByTimeZone(int hours, String timeZoneName) {
         Calendar calendar = new GregorianCalendar(2017, Calendar.JULY, 27, hours, 20);
@@ -140,4 +149,4 @@ public class GreetingTest {
         //then
         assertEquals("Wrong actual Message. Expected: " + expected, expected, actual);
     }
-}
+}*/
