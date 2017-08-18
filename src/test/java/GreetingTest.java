@@ -1,4 +1,3 @@
-/*
 import com.ravskiy.Greeting;
 import org.junit.Test;
 
@@ -9,33 +8,21 @@ import static org.junit.Assert.assertEquals;
 
 public class GreetingTest {
 
-    private ResourceBundle bundleEN = getResourceBundle("en", "EN");
-    private ResourceBundle bundleRU = getResourceBundle("ru", "UA");
+    private Locale localeUA = new Locale("ru", "UA");
+    private ResourceBundle bundleEN = getResourceBundle(Locale.US);
+    private ResourceBundle bundleRU = getResourceBundle(localeUA);
     private Greeting greeting = new Greeting(bundleEN, bundleRU);
-    private String testTimeZoneUkraine = "Europe/Kiev";
-    private String testTimeZoneNewYork = "America/New_York";
-    private String testTimeZoneTokyo = "Asia/Tokyo";
 
-    private Calendar getCalendarByLocale(int hours, Locale locale) {
-        Calendar calendar = Calendar.getInstance(locale);
-        calendar.getTimeZone().getDisplayName(locale);
-        //Calendar calendar = new GregorianCalendar(2017, Calendar.JULY, 27, hours, 20);
-        //calendar.get()
-        return calendar;
-    }
-
-    private Calendar getCalendarByTimeZone(int hours, String timeZoneName) {
-        Calendar calendar = new GregorianCalendar(2017, Calendar.JULY, 27, hours, 20);
-        calendar.setTimeZone(TimeZone.getTimeZone(timeZoneName));
-        return calendar;
+    private Calendar getCalendarByHours(int hours) {
+        return new GregorianCalendar(2017, Calendar.JULY, 27, hours, 20);
     }
 
     @Test
     public void shouldReturnGoodMorningMessageOnRussianFromKiev() {
         //given
-        String expected = bundleRU.getString("message.morning");
+        String expected = greeting.convertToUTFEncoding(bundleRU.getString("message.morning"));
         //when
-        String actual = greeting.sayHello(getCalendarByTimeZone(7, testTimeZoneUkraine));
+        String actual = greeting.sayHello(getCalendarByHours(7), localeUA);
         //then
         assertEquals("Wrong actual Message. Expected: " + expected, expected, actual);
     }
@@ -43,9 +30,9 @@ public class GreetingTest {
     @Test
     public void shouldReturnGoodDayMessageOnRussianFromKiev() {
         //given
-        String expected = bundleRU.getString("message.day");
+        String expected = greeting.convertToUTFEncoding(bundleRU.getString("message.day"));
         //when
-        String actual = greeting.sayHello(getCalendarByTimeZone(14, testTimeZoneUkraine));
+        String actual = greeting.sayHello(getCalendarByHours(14), localeUA);
         //then
         assertEquals("Wrong actual Message. Expected: " + expected, expected, actual);
     }
@@ -53,9 +40,9 @@ public class GreetingTest {
     @Test
     public void shouldReturnGoodEveningMessageOnRussianFromKiev() {
         //given
-        String expected = bundleRU.getString("message.evening");
+        String expected = greeting.convertToUTFEncoding(bundleRU.getString("message.evening"));
         //when
-        String actual = greeting.sayHello(getCalendarByTimeZone(20, testTimeZoneUkraine));
+        String actual = greeting.sayHello(getCalendarByHours(20), localeUA);
         //then
         assertEquals("Wrong actual Message. Expected: " + expected, expected, actual);
     }
@@ -63,9 +50,9 @@ public class GreetingTest {
     @Test
     public void shouldReturnGoodNightMessageOnRussianFromKiev() {
         //given
-        String expected = bundleRU.getString("message.night");
+        String expected = greeting.convertToUTFEncoding(bundleRU.getString("message.night"));
         //when
-        String actual = greeting.sayHello(getCalendarByTimeZone(3, testTimeZoneUkraine));
+        String actual = greeting.sayHello(getCalendarByHours(3), localeUA);
         //then
         assertEquals("Wrong actual Message. Expected: " + expected, expected, actual);
     }
@@ -73,9 +60,9 @@ public class GreetingTest {
     @Test
     public void shouldReturnGoodMorningMessageOnEnglishFromNY() {
         //given
-        String expected = bundleEN.getString("message.morning");
+        String expected = greeting.convertToUTFEncoding(bundleEN.getString("message.morning"));
         //when
-        String actual = greeting.sayHello(getCalendarByTimeZone(8, testTimeZoneNewYork));
+        String actual = greeting.sayHello(getCalendarByHours(8), Locale.US);
         //then
         assertEquals("Wrong actual Message. Expected: " + expected, expected, actual);
     }
@@ -83,9 +70,9 @@ public class GreetingTest {
     @Test
     public void shouldReturnGoodDayMessageOnEnglishFromNY() {
         //given
-        String expected = bundleEN.getString("message.day");
+        String expected = greeting.convertToUTFEncoding(bundleEN.getString("message.day"));
         //when
-        String actual = greeting.sayHello(getCalendarByTimeZone(16, testTimeZoneNewYork));
+        String actual = greeting.sayHello(getCalendarByHours(16), Locale.US);
         //then
         assertEquals("Wrong actual Message. Expected: " + expected, expected, actual);
     }
@@ -93,9 +80,9 @@ public class GreetingTest {
     @Test
     public void shouldReturnGoodEveningMessageOnEnglishFromNY() {
         //given
-        String expected = bundleEN.getString("message.evening");
+        String expected = greeting.convertToUTFEncoding(bundleEN.getString("message.evening"));
         //when
-        String actual = greeting.sayHello(getCalendarByTimeZone(21, testTimeZoneNewYork));
+        String actual = greeting.sayHello(getCalendarByHours(21), Locale.US);
         //then
         assertEquals("Wrong actual Message. Expected: " + expected, expected, actual);
     }
@@ -103,9 +90,9 @@ public class GreetingTest {
     @Test
     public void shouldReturnGoodNightMessageOnEnglishFromNY() {
         //given
-        String expected = bundleEN.getString("message.night");
+        String expected = greeting.convertToUTFEncoding(bundleEN.getString("message.night"));
         //when
-        String actual = greeting.sayHello(getCalendarByTimeZone(4, testTimeZoneNewYork));
+        String actual = greeting.sayHello(getCalendarByHours(4), Locale.US);
         //then
         assertEquals("Wrong actual Message. Expected: " + expected, expected, actual);
     }
@@ -113,9 +100,9 @@ public class GreetingTest {
     @Test
     public void shouldReturnGoodMorningMessageOnEnglishFromTokyo() {
         //given
-        String expected = bundleEN.getString("message.morning");
+        String expected = greeting.convertToUTFEncoding(bundleEN.getString("message.morning"));
         //when
-        String actual = greeting.sayHello(getCalendarByTimeZone(6, testTimeZoneTokyo));
+        String actual = greeting.sayHello(getCalendarByHours(6), Locale.JAPAN);
         //then
         assertEquals("Wrong actual Message. Expected: " + expected, expected, actual);
     }
@@ -123,9 +110,9 @@ public class GreetingTest {
     @Test
     public void shouldReturnGoodDayMessageOnEnglishFromTokyo() {
         //given
-        String expected = bundleEN.getString("message.day");
+        String expected = greeting.convertToUTFEncoding(bundleEN.getString("message.day"));
         //when
-        String actual = greeting.sayHello(getCalendarByTimeZone(17, testTimeZoneTokyo));
+        String actual = greeting.sayHello(getCalendarByHours(17), Locale.JAPAN);
         //then
         assertEquals("Wrong actual Message. Expected: " + expected, expected, actual);
     }
@@ -133,9 +120,9 @@ public class GreetingTest {
     @Test
     public void shouldReturnGoodEveningMessageOnEnglishFromTokyo() {
         //given
-        String expected = bundleEN.getString("message.evening");
+        String expected = greeting.convertToUTFEncoding(bundleEN.getString("message.evening"));
         //when
-        String actual = greeting.sayHello(getCalendarByTimeZone(22, testTimeZoneTokyo));
+        String actual = greeting.sayHello(getCalendarByHours(22), Locale.JAPAN);
         //then
         assertEquals("Wrong actual Message. Expected: " + expected, expected, actual);
     }
@@ -143,10 +130,10 @@ public class GreetingTest {
     @Test
     public void shouldReturnGoodNightMessageOnEnglishFromTokyo() {
         //given
-        String expected = bundleEN.getString("message.night");
+        String expected = greeting.convertToUTFEncoding(bundleEN.getString("message.night"));
         //when
-        String actual = greeting.sayHello(getCalendarByTimeZone(5, testTimeZoneTokyo));
+        String actual = greeting.sayHello(getCalendarByHours(5), Locale.JAPAN);
         //then
         assertEquals("Wrong actual Message. Expected: " + expected, expected, actual);
     }
-}*/
+}

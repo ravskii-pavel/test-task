@@ -10,9 +10,8 @@ public class Main {
     public static final Logger APP_LOGGER = Logger.getLogger("application");
 
     public static void main(String[] args) {
-        Locale localeUA = new Locale("ru", "UA");
         ResourceBundle bundleEN = getResourceBundle(Locale.US);
-        ResourceBundle bundleRU = getResourceBundle(localeUA);
+        ResourceBundle bundleRU = getResourceBundle(new Locale("ru", "UA"));
         Greeting greeting = new Greeting(bundleEN, bundleRU);
         APP_LOGGER.info(greeting.sayHello(Calendar.getInstance(), Locale.getDefault()));
     }
