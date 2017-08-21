@@ -21,7 +21,10 @@ public class Greeting {
 
     public String sayHello(Calendar calendar, Locale locale) {
         String localeName = locale.getLanguage();
-        if (localeName.equals("ru")) return getMessage(calendar, bundleRU);
+        String country = locale.getCountry();
+        if (localeName.equals("ru") && (country.equals("RU") || country.equals("UA"))){
+            return getMessage(calendar, bundleRU);
+        }
         else return getMessage(calendar, bundleEN);
     }
 
